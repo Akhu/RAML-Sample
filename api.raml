@@ -1,0 +1,29 @@
+#%RAML 1.0
+title: ASKO
+version: v1
+baseUri: https://myapi.io
+mediaType: [ application/json ]
+types:
+  Mytype: !include resourceTypes/myType.raml
+  MyPostType: !include resourceTypes/myPostType.raml
+traits:
+  logged: !include traits/headers.raml
+/route:
+  is:  [logged]
+  post:
+    body:
+      application/json: MyPostType[]
+    responses:
+      200:
+        body:
+          application/json: Mytype
+      204:
+/routeWithParam/{id}:
+  is:  [logged]
+  get:
+    body:
+      application/json:
+  uriParameters:
+    id:
+      displayName: Survey ID
+      description: ID for the requested survey
